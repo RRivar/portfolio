@@ -5,8 +5,18 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
+import { getDatabase, ref, child, get } from "firebase/database";
 const Cards = () => {
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `cards`)).then((snapshot) => {
+        if (snapshot.exists()) {
+            console.log(snapshot.val());
+        } else {
+            console.log("No data available");
+        }
+        }).catch((error) => {
+        console.error(error);
+    });
     return (
         <Card>
             <CardMedia
